@@ -1,2 +1,8 @@
-# python-exercises
-Here you'll find all the exercises i'm doing to become a pro Developer
+# Python Exercises
+Collection of my practice scripts while learning Python.
+Each file is independent and may use divergent libraries. 
+
+# How to run. 
+
+Make sure you have Python 3 installed. 
+Run any script like this: ```bash. python filename.py
