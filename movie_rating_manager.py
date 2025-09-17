@@ -7,26 +7,54 @@ movies = {
 # Adding a new movie in the dictionary "Movies"
 
 
-def add_movies(movies, name, year, rating, votes):
+def add_movie(movies, name, year, rating, votes):
     if name in movies:
-        print("Movie already exist")
-        return False
+        return None
     else:
         movies[name] = {"year": year, "rating": rating, "votes": votes}
-        
-        last = ""
+    return name
 
-        for movie in movies:
-            last = movie
-        print(f"You successfully added {last} in your movies list!")
-    return True
 
-add_movies(movies, "Star Trek", 1966, 8.1, 1500)
-
+# Call the function just created and add a new movie
+added_title = add_movie(movies, "Star Trek", 1966, 8.1, 1500)
+if added_title:  # Checking if the name exists, and print the correspective result
+    print(f"{added_title} has been added to your movies!")
+else:
+    print("Movie already exists")
 
 
 # Update rating of an existing movie
 
-movies["Star Trek"]["rating"] = 8.1
+def update_rating(movies, name, new_rating):
+    # Check if the movie exists in the dictionary
+    if name in movies:
+        # Validate that the new rating is between 1 and 10
+        if new_rating >= 1 and new_rating <= 10:
+            # Get current rating and number of votes
+            current_rating = movies[name]["rating"]
+            current_votes = movies[name]["votes"]
 
-print(movies)
+            # Compute the new weighted average rating
+            new_average = (current_rating * current_votes + new_rating) / (current_votes + 1)
+
+            # Update the dictionary in place with the new rating and votes
+            movies[name]["rating"] = new_average
+            movies[name]["votes"] += 1
+
+            # Return the updated values (new average rating, new votes count)
+            return new_average, current_votes + 1
+
+    # If movie doesn't exist or rating is invalid, return None
+    return None
+
+
+# Example usage
+result = update_rating(movies, "Star Trek", 10)       #Packing the return in a single variable
+if result:                                            #Checking if the return is not a none 
+    average, votes = result
+    print(f"The average is {average}, the new votes are {votes}! ")
+else:
+    print("Movie doesn't exist!")
+
+
+
